@@ -5,14 +5,12 @@ import android.util.Pair;
 public class CalculatorSimple {
 
     private StringBuilder text = new StringBuilder();
-    private float numericOne;
-    private char mathOperations;
-    private float numericTwo;
+    private float numericOne = 0.0f;
+    private char mathOperations = ' ';
+    private float numericTwo = 0.0f;
 
     String discard() {
-        if (text.length() != 0) {
-            text.setLength(0);
-        }
+        clearData();
         return text.toString();
     }
 
@@ -118,29 +116,56 @@ public class CalculatorSimple {
     }
 
     Pair<String, String> equals() {
-        String[] numeric = text.toString().split("[" + mathOperations + "]");
-        numericTwo = Float.parseFloat(numeric[1]);
-        float total = 0;
-        switch (mathOperations) {
-            case '+':
-                total = numericOne + numericTwo;
-                break;
-            case '-':
-                total = numericOne - numericTwo;
-                break;
-            case '/':
-                total = numericOne / numericTwo;
-                break;
-            case '*':
-                total = numericOne * numericTwo;
-                break;
+        if (calcTwoNumber()) {
+            float total = 0.0f;
+            switch (mathOperations) {
+                case '+':
+                    total = numericOne + numericTwo;
+                    break;
+                case '-':
+                    total = numericOne - numericTwo;
+                    break;
+                case '/':
+                    total = numericOne / numericTwo;
+                    break;
+                case '*':
+                    total = numericOne * numericTwo;
+                    break;
+            }
+            String temp = text.toString();
+            text.setLength(0);
+            text.append(total);
+            mathOperations = ' ';
+            return new Pair<>(temp, Float.toString(total));
         }
-        String temp = text.toString();
-        text.setLength(0);
-        return new Pair<>(temp, Float.toString(total));
+        clearData();
+        return new Pair<>("", "");
     }
 
     String percent() {
+        if (mathOperations != ' ' && calcTwoNumber()) {
+            float totalPercent = (numericOne * numericTwo)/100;
+            text.setLength(0);
+            text.append(numericOne).append(mathOperations).append(totalPercent);
+            return text.toString();
+        }
+        clearData();
         return text.toString();
+    }
+
+    private boolean calcTwoNumber() {
+        String[] numeric = text.toString().split("[" + mathOperations + "]");
+        if (numeric.length == 2) {
+            numericTwo = Float.parseFloat(numeric[1]);
+            return true;
+        }
+        return false;
+    }
+
+    private void clearData() {
+        text.setLength(0);
+        numericOne = 0.0f;
+        mathOperations = ' ';
+        numericTwo = 0.0f;
     }
 }
