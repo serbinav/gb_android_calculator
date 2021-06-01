@@ -5,9 +5,9 @@ import android.util.Pair;
 public class CalculatorSimple {
 
     private StringBuilder text = new StringBuilder();
-    private int numericOne;
+    private float numericOne;
     private char mathOperations;
-    private int numericTwo;
+    private float numericTwo;
 
     String discard() {
         if (text.length() != 0) {
@@ -83,44 +83,44 @@ public class CalculatorSimple {
     }
 
     String dot() {
-        if (text.indexOf(",") < 0) {
-            text.append(",");
+        if (text.indexOf(".") < 0) {
+            text.append(".");
         }
         return text.toString();
     }
 
     String plus() {
-        numericOne = Integer.parseInt(text.toString());
+        numericOne = Float.parseFloat(text.toString());
         mathOperations = '+';
         text.append("+");
         return text.toString();
     }
 
     String minus() {
-        numericOne = Integer.parseInt(text.toString());
+        numericOne = Float.parseFloat(text.toString());
         mathOperations = '-';
         text.append("-");
         return text.toString();
     }
 
     String divide() {
-        numericOne = Integer.parseInt(text.toString());
+        numericOne = Float.parseFloat(text.toString());
         mathOperations = '/';
         text.append("/");
         return text.toString();
     }
 
     String multiply() {
-        numericOne = Integer.parseInt(text.toString());
+        numericOne = Float.parseFloat(text.toString());
         mathOperations = '*';
         text.append("*");
         return text.toString();
     }
 
     Pair<String, String> equals() {
-        String[] numeric = text.toString().split("[+-/*]");
-        numericTwo = Integer.parseInt(numeric[1]);
-        int total = 0;
+        String[] numeric = text.toString().split("[" + mathOperations + "]");
+        numericTwo = Float.parseFloat(numeric[1]);
+        float total = 0;
         switch (mathOperations) {
             case '+':
                 total = numericOne + numericTwo;
@@ -137,7 +137,7 @@ public class CalculatorSimple {
         }
         String temp = text.toString();
         text.setLength(0);
-        return new Pair<>(temp, Integer.toString(total));
+        return new Pair<>(temp, Float.toString(total));
     }
 
     String percent() {
