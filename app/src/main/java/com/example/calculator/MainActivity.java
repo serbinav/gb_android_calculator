@@ -3,6 +3,7 @@ package com.example.calculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Pair;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         TextView textOut = findViewById(R.id.text_out);
         EditText textInput = findViewById(R.id.text_input);
 
-        CalculatorCount calc = new CalculatorCount();
+        CalculatorSimple calc = new CalculatorSimple();
 
         Button buttonDiscard = findViewById(R.id.btn_discard);
         buttonDiscard.setOnClickListener(v -> {
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
             textInput.setText(calc.changeSymbol());
         });
 
+        //TODO доделать высчитывание процентов
         Button buttonPercent = findViewById(R.id.btn_percent);
 
         Button buttonDelete = findViewById(R.id.btn_delete);
@@ -50,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button buttonDivide = findViewById(R.id.btn_divide);
+        buttonDivide.setOnClickListener(v -> {
+            textInput.setText(calc.divide());
+        });
 
         Button buttonFour = findViewById(R.id.btn_four);
         buttonFour.setOnClickListener(v -> {
@@ -65,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button buttonMultiply = findViewById(R.id.btn_multiply);
+        buttonMultiply.setOnClickListener(v -> {
+            textInput.setText(calc.multiply());
+        });
 
         Button buttonOne = findViewById(R.id.btn_one);
         buttonOne.setOnClickListener(v -> {
@@ -80,22 +88,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button buttonMinus = findViewById(R.id.btn_minus);
+        buttonMinus.setOnClickListener(v -> {
+            textInput.setText(calc.minus());
+        });
 
+        //TODO не давать высталять больше одного нуля если первый элемент
         Button buttonZero = findViewById(R.id.btn_zero);
         buttonZero.setOnClickListener(v -> {
             textInput.setText(calc.zero());
         });
 
+        //TODO если первый элемент выставлять 0 впереди
         Button buttonDot = findViewById(R.id.btn_dot);
         buttonDot.setOnClickListener(v -> {
             textInput.setText(calc.dot());
         });
 
+        //TODO переделать на работу с дробными числами float
         Button buttonEquals = findViewById(R.id.btn_equals);
         buttonEquals.setOnClickListener(v -> {
-            calc.equals();
-            //textOut.setText(calc.equals());
-            //textInput.setText("");
+            Pair<String, String> calcData = calc.equals();
+            textOut.setText(calcData.first);
+            textInput.setText(calcData.second);
         });
 
         Button buttonPlus = findViewById(R.id.btn_plus);
