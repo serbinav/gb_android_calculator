@@ -1,5 +1,11 @@
 package com.example.calculator;
 
+import android.util.Pair;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+@Deprecated
 public class CalculatorCount {
 
     private StringBuilder text = new StringBuilder();
@@ -7,27 +13,24 @@ public class CalculatorCount {
     String discard() {
         if (text.length() != 0) {
             text.setLength(0);
-//            textInput.setText(text.toString());
         }
         return text.toString();
     }
 
-    String change_symbol() {
+    String changeSymbol() {
         if (text.length() != 0 && text.charAt(0) == '-') {
             text.deleteCharAt(0);
         } else {
             text.insert(0, "-");
         }
-//        textInput.setText(text.toString());
-        return "";
+        return text.toString();
     }
 
     String delete() {
         if (text.length() != 0) {
             text.setLength(text.length() - 1);
-//            textInput.setText(text.toString());
         }
-        return "";
+        return text.toString();
     }
 
     String seven() {
@@ -83,15 +86,35 @@ public class CalculatorCount {
     String dot() {
         if (text.indexOf(",") < 0) {
             text.append(",");
-//            textInput.setText(text.toString());
         }
-        return "";
+        return text.toString();
     }
 
-    String equals() {
-//        textOut.setText(text.toString());
-//        textInput.setText("");
-        text.setLength(0);
-        return "";
+    Pair<String, String> equals() {
+        Pattern p = Pattern.compile("(\\d+)([+-/*])(\\d+)");
+        Matcher m = p.matcher(text.toString());
+
+        int numericOne = Integer.parseInt(m.group(1));
+        String sign = m.group(2);
+        int numericTwo = Integer.parseInt(m.group(3));
+        int end;
+
+        switch (sign) {
+            case "+":
+                end = numericOne + numericTwo;
+            case "-":
+                end = numericOne - numericTwo;
+            case "/":
+                end = numericOne / numericTwo;
+            case "*":
+                end = numericOne * numericTwo;
+        }
+
+        return new Pair<>(text.toString(), "");
+    }
+
+    String plus() {
+        text.append("+");
+        return text.toString();
     }
 }

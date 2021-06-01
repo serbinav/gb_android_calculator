@@ -21,30 +21,19 @@ public class MainActivity extends AppCompatActivity {
 
         Button buttonDiscard = findViewById(R.id.btn_discard);
         buttonDiscard.setOnClickListener(v -> {
-//            if (text.length() != 0) {
-//                text.setLength(0);
-//                textInput.setText(text.toString());
-//            }
+            textInput.setText(calc.discard());
         });
 
         Button buttonChangeSymbol = findViewById(R.id.btn_change_symbol);
         buttonChangeSymbol.setOnClickListener(v -> {
-//            if (text.length() != 0 && text.charAt(0) == '-') {
-//                text.deleteCharAt(0);
-//            } else {
-//                text.insert(0, "-");
-//            }
-//            textInput.setText(text.toString());
+            textInput.setText(calc.changeSymbol());
         });
 
         Button buttonPercent = findViewById(R.id.btn_percent);
 
         Button buttonDelete = findViewById(R.id.btn_delete);
         buttonDelete.setOnClickListener(v -> {
-//            if (text.length() != 0) {
-//                text.setLength(text.length() - 1);
-//                textInput.setText(text.toString());
-//            }
+            textInput.setText(calc.delete());
         });
 
         Button buttonSeven = findViewById(R.id.btn_seven);
@@ -99,21 +88,20 @@ public class MainActivity extends AppCompatActivity {
 
         Button buttonDot = findViewById(R.id.btn_dot);
         buttonDot.setOnClickListener(v -> {
-//            if (text.indexOf(",") < 0) {
-//                text.append(",");
-//                textInput.setText(text.toString());
-//            }
+            textInput.setText(calc.dot());
         });
-
 
         Button buttonEquals = findViewById(R.id.btn_equals);
         buttonEquals.setOnClickListener(v -> {
-//            textOut.setText(text.toString());
-//            textInput.setText("");
-//            text.setLength(0);
+            calc.equals();
+            //textOut.setText(calc.equals());
+            //textInput.setText("");
         });
 
         Button buttonPlus = findViewById(R.id.btn_plus);
+        buttonPlus.setOnClickListener(v -> {
+            textInput.setText(calc.plus());
+        });
     }
 }
 
