@@ -10,20 +10,12 @@ public class CalculatorSimple {
     private char mathOperations = ' ';
     private float numericTwo = 0.0f;
 
-    public StringBuilder getText() {
-        return text;
-    }
-
     public float getNumericOne() {
         return numericOne;
     }
 
     public char getMathOperations() {
         return mathOperations;
-    }
-
-    public float getNumericTwo() {
-        return numericTwo;
     }
 
     String discard() {
