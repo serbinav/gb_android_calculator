@@ -6,6 +6,14 @@
     android:columnCount="4">
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_percent"
+        style="@style/button"
+        android:ellipsize="middle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/percent" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_discard"
         style="@style/button"
         android:layout_width="wrap_content"
@@ -13,25 +21,18 @@
         android:text="@string/discard" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_change_symbol"
-        style="@style/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/change_symbol" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_percent"
-        style="@style/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/percent" />
-
-    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_delete"
         style="@style/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/delete" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_divide"
+        style="@style/button.grey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/divide" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_seven"
@@ -55,11 +56,11 @@
         android:text="@string/nine" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_divide"
+        android:id="@+id/btn_multiply"
         style="@style/button.grey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/divide" />
+        android:text="@string/multiply" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_four"
@@ -83,11 +84,11 @@
         android:text="@string/six" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_multiply"
+        android:id="@+id/btn_minus"
         style="@style/button.grey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/multiply" />
+        android:text="@string/minus" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_one"
@@ -111,11 +112,18 @@
         android:text="@string/three" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_minus"
+        android:id="@+id/btn_plus"
         style="@style/button.grey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/minus" />
+        android:text="@string/plus" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_change_symbol"
+        style="@style/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_symbol" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_zero"
@@ -137,11 +145,4 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/equals" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_plus"
-        style="@style/button.grey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/plus" />
 </GridLayout>
