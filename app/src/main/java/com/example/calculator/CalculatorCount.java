@@ -91,7 +91,7 @@ public class CalculatorCount {
     }
 
     Pair<String, String> equals() {
-        Pattern p = Pattern.compile("(\\d+)([+-/*])(\\d+)");
+        Pattern p = Pattern.compile("(\\d+[.]?\\d*)([+-/*])(\\d+[.]?\\d*)");
         Matcher m = p.matcher(text.toString());
 
         int numericOne = Integer.parseInt(m.group(1));
