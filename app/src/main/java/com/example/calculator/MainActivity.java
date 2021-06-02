@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         Button buttonChangeSymbol = findViewById(R.id.btn_change_symbol);
         buttonChangeSymbol.setOnClickListener(v -> textInput.setText(calc.changeSymbol()));
 
-        //TODO доделать высчитывание процентов
         Button buttonPercent = findViewById(R.id.btn_percent);
+        buttonPercent.setOnClickListener(v -> textInput.setText(calc.percent()));
 
         Button buttonDelete = findViewById(R.id.btn_delete);
         buttonDelete.setOnClickListener(v -> textInput.setText(calc.delete()));
@@ -68,14 +68,12 @@ public class MainActivity extends AppCompatActivity {
         Button buttonMinus = findViewById(R.id.btn_minus);
         buttonMinus.setOnClickListener(v -> textInput.setText(calc.minus()));
 
-        //TODO не давать высталять больше одного нуля если первый элемент
         Button buttonZero = findViewById(R.id.btn_zero);
         buttonZero.setOnClickListener(v -> textInput.setText(calc.zero()));
 
         Button buttonDot = findViewById(R.id.btn_dot);
         buttonDot.setOnClickListener(v -> textInput.setText(calc.dot()));
 
-        //TODO деление на ноль
         Button buttonEquals = findViewById(R.id.btn_equals);
         buttonEquals.setOnClickListener(v -> {
             Pair<String, String> calcData = calc.equals();
@@ -89,5 +87,11 @@ public class MainActivity extends AppCompatActivity {
 }
 
 //1. Напишите обработку каждой кнопки из макета калькулятора.
-//2. Создайте объект с данными и операциями калькулятора. Продумайте, каким образом будете хранить введённые пользователем данные.
-//3. * Создайте макет калькулятора для горизонтальной ориентации экрана и отображайте его в ландшафтной ориентации.
+
+//2. Создайте объект с данными и операциями калькулятора.
+// Продумайте, каким образом будете хранить введённые пользователем данные.
+
+//3. * Создайте макет калькулятора для горизонтальной ориентации экрана и
+// отображайте его в ландшафтной ориентации.
+
+// 4 задание доделка по предыдущему

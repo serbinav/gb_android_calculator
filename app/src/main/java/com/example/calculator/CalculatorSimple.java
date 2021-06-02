@@ -88,62 +88,55 @@ public class CalculatorSimple {
     }
 
     String plus() {
-        numericOne = Float.parseFloat(text.toString());
-        mathOperations = '+';
-        text.append("+");
+        if (text.length() != 0) {
+            numericOne = Float.parseFloat(text.toString());
+            mathOperations = '+';
+            text.append("+");
+        }
         return text.toString();
     }
 
     String minus() {
-        numericOne = Float.parseFloat(text.toString());
-        mathOperations = '-';
-        text.append("-");
+        if (text.length() != 0) {
+            numericOne = Float.parseFloat(text.toString());
+            mathOperations = '-';
+            text.append("-");
+        }
         return text.toString();
     }
 
     String divide() {
-        numericOne = Float.parseFloat(text.toString());
-        mathOperations = '/';
-        text.append("/");
+        if (text.length() != 0) {
+            numericOne = Float.parseFloat(text.toString());
+            mathOperations = '/';
+            text.append("/");
+        }
         return text.toString();
     }
 
     String multiply() {
-        numericOne = Float.parseFloat(text.toString());
-        mathOperations = '*';
-        text.append("*");
+        if (text.length() != 0) {
+            numericOne = Float.parseFloat(text.toString());
+            mathOperations = '*';
+            text.append("*");
+        }
         return text.toString();
     }
 
     Pair<String, String> equals() {
         if (calcTwoNumber()) {
-            float total = 0.0f;
-            switch (mathOperations) {
-                case '+':
-                    total = numericOne + numericTwo;
-                    break;
-                case '-':
-                    total = numericOne - numericTwo;
-                    break;
-                case '/':
-                    total = numericOne / numericTwo;
-                    break;
-                case '*':
-                    total = numericOne * numericTwo;
-                    break;
-            }
             String temp = text.toString();
             text.setLength(0);
-            text.append(total);
+            text.append(calcTotal());
             mathOperations = ' ';
-            return new Pair<>(temp, Float.toString(total));
+            return new Pair<>(temp, text.toString());
         }
         clearData();
         return new Pair<>("", "");
     }
 
     String percent() {
-        if (mathOperations != ' ' && calcTwoNumber()) {
+        if (calcTwoNumber()) {
             float totalPercent = (numericOne * numericTwo)/100;
             text.setLength(0);
             text.append(numericOne).append(mathOperations).append(totalPercent);
@@ -160,6 +153,25 @@ public class CalculatorSimple {
             return true;
         }
         return false;
+    }
+
+    private float calcTotal() {
+        float total = 0.0f;
+        switch (mathOperations) {
+            case '+':
+                total = numericOne + numericTwo;
+                break;
+            case '-':
+                total = numericOne - numericTwo;
+                break;
+            case '/':
+                total = numericOne / numericTwo;
+                break;
+            case '*':
+                total = numericOne * numericTwo;
+                break;
+        }
+        return total;
     }
 
     private void clearData() {
