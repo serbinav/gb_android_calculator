@@ -1,6 +1,7 @@
 package com.example.calculator;
 
-import android.util.Pair;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CalculatorSimple {
 
@@ -9,8 +10,27 @@ public class CalculatorSimple {
     private char mathOperations = ' ';
     private float numericTwo = 0.0f;
 
+    public StringBuilder getText() {
+        return text;
+    }
+
+    public float getNumericOne() {
+        return numericOne;
+    }
+
+    public char getMathOperations() {
+        return mathOperations;
+    }
+
+    public float getNumericTwo() {
+        return numericTwo;
+    }
+
     String discard() {
-        clearData();
+        text.setLength(0);
+        numericOne = 0.0f;
+        mathOperations = ' ';
+        numericTwo = 0.0f;
         return text.toString();
     }
 
@@ -25,6 +45,11 @@ public class CalculatorSimple {
 
     String delete() {
         if (text.length() != 0) {
+            Pattern p = Pattern.compile("\\S*[+-/*]$");
+            Matcher m = p.matcher(text.toString());
+            if (m.matches()) {
+                mathOperations = ' ';
+            }
             text.setLength(text.length() - 1);
         }
         return text.toString();
@@ -88,7 +113,7 @@ public class CalculatorSimple {
     }
 
     String plus() {
-        if (text.length() != 0) {
+        if (text.length() != 0 && mathOperations == ' ') {
             numericOne = Float.parseFloat(text.toString());
             mathOperations = '+';
             text.append("+");
@@ -97,7 +122,7 @@ public class CalculatorSimple {
     }
 
     String minus() {
-        if (text.length() != 0) {
+        if (text.length() != 0 && mathOperations == ' ') {
             numericOne = Float.parseFloat(text.toString());
             mathOperations = '-';
             text.append("-");
@@ -106,7 +131,7 @@ public class CalculatorSimple {
     }
 
     String divide() {
-        if (text.length() != 0) {
+        if (text.length() != 0 && mathOperations == ' ') {
             numericOne = Float.parseFloat(text.toString());
             mathOperations = '/';
             text.append("/");
@@ -115,7 +140,7 @@ public class CalculatorSimple {
     }
 
     String multiply() {
-        if (text.length() != 0) {
+        if (text.length() != 0 && mathOperations == ' ') {
             numericOne = Float.parseFloat(text.toString());
             mathOperations = '*';
             text.append("*");
@@ -123,26 +148,39 @@ public class CalculatorSimple {
         return text.toString();
     }
 
-    Pair<String, String> equals() {
+    String[] equals() {
         if (calcTwoNumber()) {
+            float total = 0.0f;
+            switch (mathOperations) {
+                case '+':
+                    total = numericOne + numericTwo;
+                    break;
+                case '-':
+                    total = numericOne - numericTwo;
+                    break;
+                case '/':
+                    total = numericOne / numericTwo;
+                    break;
+                case '*':
+                    total = numericOne * numericTwo;
+                    break;
+            }
             String temp = text.toString();
             text.setLength(0);
-            text.append(calcTotal());
+            text.append(total);
             mathOperations = ' ';
-            return new Pair<>(temp, text.toString());
+            return new String[]{temp, text.toString()};
         }
-        clearData();
-        return new Pair<>("", "");
+        return new String[]{"", text.toString()};
     }
 
     String percent() {
         if (calcTwoNumber()) {
-            float totalPercent = (numericOne * numericTwo)/100;
+            float totalPercent = (numericOne * numericTwo) / 100;
             text.setLength(0);
             text.append(numericOne).append(mathOperations).append(totalPercent);
             return text.toString();
         }
-        clearData();
         return text.toString();
     }
 
@@ -153,31 +191,5 @@ public class CalculatorSimple {
             return true;
         }
         return false;
-    }
-
-    private float calcTotal() {
-        float total = 0.0f;
-        switch (mathOperations) {
-            case '+':
-                total = numericOne + numericTwo;
-                break;
-            case '-':
-                total = numericOne - numericTwo;
-                break;
-            case '/':
-                total = numericOne / numericTwo;
-                break;
-            case '*':
-                total = numericOne * numericTwo;
-                break;
-        }
-        return total;
-    }
-
-    private void clearData() {
-        text.setLength(0);
-        numericOne = 0.0f;
-        mathOperations = ' ';
-        numericTwo = 0.0f;
     }
 }

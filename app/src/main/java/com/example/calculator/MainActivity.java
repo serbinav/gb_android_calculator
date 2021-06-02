@@ -3,7 +3,6 @@ package com.example.calculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Pair;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -76,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button buttonEquals = findViewById(R.id.btn_equals);
         buttonEquals.setOnClickListener(v -> {
-            Pair<String, String> calcData = calc.equals();
-            textOut.setText(calcData.first);
-            textInput.setText(calcData.second);
+            String[] calcData = calc.equals();
+            textOut.setText(calcData[0]);
+            textInput.setText(calcData[1]);
         });
 
         Button buttonPlus = findViewById(R.id.btn_plus);
