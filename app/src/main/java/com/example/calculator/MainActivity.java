@@ -53,4 +53,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             btn.setOnClickListener(this);
         }
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_discard:
+                textInput.setText(calc.discard());
+                break;
+            case R.id.btn_change_symbol:
+                textInput.setText(calc.changeSymbol());
+                break;
+            case R.id.btn_percent:
+                textInput.setText(calc.percent());
+                break;
+            case R.id.btn_delete:
+                textInput.setText(calc.delete());
+                break;
+            case R.id.btn_divide:
+                textInput.setText(calc.divide());
+                break;
+            case R.id.btn_multiply:
+                textInput.setText(calc.multiply());
+                break;
+            case R.id.btn_minus:
+                textInput.setText(calc.minus());
+                break;
+            case R.id.btn_dot:
+                textInput.setText(calc.dot());
+                break;
+            case R.id.btn_equals:
+                String[] calcData = calc.equals();
+                textOut.setText(calcData[0]);
+                textInput.setText(calcData[1]);
+                break;
+            case R.id.btn_plus:
+                textInput.setText(calc.plus());
+                break;
+            default:
+                Button btn = findViewById(v.getId());
+                String textForInput = calc.addNumber(btn.getText().toString());
+                textInput.setText(textForInput);
+                break;
+        }
+    }
 }
+
+//1. Переделайте все кнопки на Материал.
+//2. Все размеры и строки сделайте ресурсами.
+//3. Создайте стиль для своего приложения.
+//        4. * Создайте светлую и тёмную тему для приложения.
+//        5. * исправление замечаний по дз
