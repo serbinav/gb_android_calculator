@@ -3,84 +3,54 @@ package com.example.calculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private final int[] numberButtonIds = new int[]{R.id.btn_zero, R.id.btn_one, R.id.btn_two,
+            R.id.btn_three, R.id.btn_four, R.id.btn_five, R.id.btn_six, R.id.btn_seven,
+            R.id.btn_eight, R.id.btn_nine};
+
+    TextView textOut;
+    EditText textInput;
+    Button buttonDiscard, buttonChangeSymbol, buttonPercent, buttonDelete, buttonDivide,
+            buttonMultiply, buttonMinus, buttonDot, buttonEquals, buttonPlus;
+    CalculatorSimple calc = new CalculatorSimple();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView textOut = findViewById(R.id.text_out);
-        EditText textInput = findViewById(R.id.text_input);
+        textOut = (TextView) findViewById(R.id.text_out);
+        textInput = (EditText) findViewById(R.id.text_input);
+        buttonDiscard = (Button) findViewById(R.id.btn_discard);
+        buttonDiscard.setOnClickListener(this);
+        buttonChangeSymbol = (Button) findViewById(R.id.btn_change_symbol);
+        buttonChangeSymbol.setOnClickListener(this);
+        buttonPercent = (Button) findViewById(R.id.btn_percent);
+        buttonPercent.setOnClickListener(this);
+        buttonDelete = (Button) findViewById(R.id.btn_delete);
+        buttonDelete.setOnClickListener(this);
+        buttonDivide = (Button) findViewById(R.id.btn_divide);
+        buttonDivide.setOnClickListener(this);
+        buttonMultiply = (Button) findViewById(R.id.btn_multiply);
+        buttonMultiply.setOnClickListener(this);
+        buttonMinus = (Button) findViewById(R.id.btn_minus);
+        buttonMinus.setOnClickListener(this);
+        buttonDot = (Button) findViewById(R.id.btn_dot);
+        buttonDot.setOnClickListener(this);
+        buttonEquals = (Button) findViewById(R.id.btn_equals);
+        buttonEquals.setOnClickListener(this);
+        buttonPlus = (Button) findViewById(R.id.btn_plus);
+        buttonPlus.setOnClickListener(this);
 
-        CalculatorSimple calc = new CalculatorSimple();
-
-        Button buttonDiscard = findViewById(R.id.btn_discard);
-        buttonDiscard.setOnClickListener(v -> textInput.setText(calc.discard()));
-
-        Button buttonChangeSymbol = findViewById(R.id.btn_change_symbol);
-        buttonChangeSymbol.setOnClickListener(v -> textInput.setText(calc.changeSymbol()));
-
-        Button buttonPercent = findViewById(R.id.btn_percent);
-        buttonPercent.setOnClickListener(v -> textInput.setText(calc.percent()));
-
-        Button buttonDelete = findViewById(R.id.btn_delete);
-        buttonDelete.setOnClickListener(v -> textInput.setText(calc.delete()));
-
-        Button buttonSeven = findViewById(R.id.btn_seven);
-        buttonSeven.setOnClickListener(v -> textInput.setText(calc.seven()));
-
-        Button buttonEight = findViewById(R.id.btn_eight);
-        buttonEight.setOnClickListener(v -> textInput.setText(calc.eight()));
-
-        Button buttonNine = findViewById(R.id.btn_nine);
-        buttonNine.setOnClickListener(v -> textInput.setText(calc.nine()));
-
-        Button buttonDivide = findViewById(R.id.btn_divide);
-        buttonDivide.setOnClickListener(v -> textInput.setText(calc.divide()));
-
-        Button buttonFour = findViewById(R.id.btn_four);
-        buttonFour.setOnClickListener(v -> textInput.setText(calc.four()));
-
-        Button buttonFive = findViewById(R.id.btn_five);
-        buttonFive.setOnClickListener(v -> textInput.setText(calc.five()));
-
-        Button buttonSix = findViewById(R.id.btn_six);
-        buttonSix.setOnClickListener(v -> textInput.setText(calc.six()));
-
-        Button buttonMultiply = findViewById(R.id.btn_multiply);
-        buttonMultiply.setOnClickListener(v -> textInput.setText(calc.multiply()));
-
-        Button buttonOne = findViewById(R.id.btn_one);
-        buttonOne.setOnClickListener(v -> textInput.setText(calc.one()));
-
-        Button buttonTwo = findViewById(R.id.btn_two);
-        buttonTwo.setOnClickListener(v -> textInput.setText(calc.two()));
-
-        Button buttonThree = findViewById(R.id.btn_three);
-        buttonThree.setOnClickListener(v -> textInput.setText(calc.three()));
-
-        Button buttonMinus = findViewById(R.id.btn_minus);
-        buttonMinus.setOnClickListener(v -> textInput.setText(calc.minus()));
-
-        Button buttonZero = findViewById(R.id.btn_zero);
-        buttonZero.setOnClickListener(v -> textInput.setText(calc.zero()));
-
-        Button buttonDot = findViewById(R.id.btn_dot);
-        buttonDot.setOnClickListener(v -> textInput.setText(calc.dot()));
-
-        Button buttonEquals = findViewById(R.id.btn_equals);
-        buttonEquals.setOnClickListener(v -> {
-            String[] calcData = calc.equals();
-            textOut.setText(calcData[0]);
-            textInput.setText(calcData[1]);
-        });
-
-        Button buttonPlus = findViewById(R.id.btn_plus);
-        buttonPlus.setOnClickListener(v -> textInput.setText(calc.plus()));
+        for (int i = 0; i < numberButtonIds.length; i++) {
+            Button btn = (Button) findViewById(numberButtonIds[i]);
+            btn.setOnClickListener(this);
+        }
     }
 }
