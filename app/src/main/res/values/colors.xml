@@ -10,4 +10,10 @@
     <color name="accent">#FF5722</color>
     <color name="light_grey">#BDBDBD</color>
     <color name="dark_grey">#757575</color>
+
+    <color name="indigo_200">#9FA8DA</color>
+    <color name="indigo_500">#3F51B5</color>
+    <color name="indigo_700">#303F9F</color>
+    <color name="blue_grey_200">#B0BEC5</color>
+    <color name="blue_grey_700">#455A64</color>
 </resources>

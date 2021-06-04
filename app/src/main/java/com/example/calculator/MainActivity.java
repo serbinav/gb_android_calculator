@@ -1,6 +1,7 @@
 package com.example.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.os.Bundle;
 import android.view.View;
@@ -48,10 +49,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonPlus = (Button) findViewById(R.id.btn_plus);
         buttonPlus.setOnClickListener(this);
 
-        for (int i = 0; i < numberButtonIds.length; i++) {
-            Button btn = (Button) findViewById(numberButtonIds[i]);
+        for (int numberButtonId : numberButtonIds) {
+            Button btn = (Button) findViewById(numberButtonId);
             btn.setOnClickListener(this);
         }
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
     }
 
     @Override
@@ -97,9 +100,3 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 }
-
-//1. Переделайте все кнопки на Материал.
-//2. Все размеры и строки сделайте ресурсами.
-//3. Создайте стиль для своего приложения.
-//        4. * Создайте светлую и тёмную тему для приложения.
-//        5. * исправление замечаний по дз
