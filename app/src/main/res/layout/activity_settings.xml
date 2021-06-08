@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="@dimen/padding"
+    tools:context=".SettingsActivity">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/first_themes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/one_themes">
+    </com.google.android.material.button.MaterialButton>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/second_themes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/two_themes">
+    </com.google.android.material.button.MaterialButton>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/third_themes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/three_themes">
+    </com.google.android.material.button.MaterialButton>
+</LinearLayout>
