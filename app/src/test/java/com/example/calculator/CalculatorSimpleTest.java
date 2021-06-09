@@ -328,20 +328,4 @@ public class CalculatorSimpleTest {
         Assert.assertArrayEquals(new String[]{"", "0"}, calc.equals());
         Assert.assertEquals(' ', calc.getMathOperations());
     }
-
-    @Test
-    public void testEquals9() {
-        CalculatorSimple calc = new CalculatorSimple();
-        Assert.assertEquals("2", calc.addNumber("2"));
-        Assert.assertEquals("2+", calc.plus());
-        Assert.assertEquals("2+2", calc.addNumber("2"));
-        Assert.assertEquals('+', calc.getMathOperations());
-        Assert.assertArrayEquals(new String[]{"2+2", "4.0"}, calc.equals());
-        Assert.assertEquals(' ', calc.getMathOperations());
-        Assert.assertEquals("4.0+", calc.plus());
-        Assert.assertEquals("4.0+6", calc.addNumber("6"));
-        Assert.assertEquals('+', calc.getMathOperations());
-        Assert.assertArrayEquals(new String[]{"4.0+6", "10.0"}, calc.equals());
-        Assert.assertEquals(' ', calc.getMathOperations());
-    }
 }

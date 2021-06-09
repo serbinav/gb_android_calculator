@@ -1,15 +1,11 @@
 package com.example.calculator;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -25,41 +21,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             buttonMultiply, buttonMinus, buttonDot, buttonEquals, buttonPlus;
     private CalculatorSimple calc = new CalculatorSimple();
 
-    private StorageThemes prefs;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        prefs = new StorageThemes(this);
-        setTheme(prefs.getThemes().getResource());
         setContentView(R.layout.activity_main);
-
-        ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        if (result.getData() != null) {
-                            String chose = result.getData().getStringExtra(
-                                    SettingsActivity.KEY_BUNDLE
-                            );
-                            switch (chose) {
-                                case "second_themes":
-                                    prefs.setThemes(ApplicationThemes.TWO_THEMES);
-                                    recreate();
-                                    break;
-                                case "third_themes":
-                                    prefs.setThemes(ApplicationThemes.THREE_THEMES);
-                                    recreate();
-                                    break;
-                                default:
-                                    prefs.setThemes(ApplicationThemes.ONE_THEMES);
-                                    recreate();
-                                    break;
-                            }
-                        }
-                    }
-                }
-        );
 
         textOut = findViewById(R.id.text_out);
         textInput = findViewById(R.id.text_input);
@@ -83,11 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonEquals.setOnClickListener(this);
         buttonPlus = findViewById(R.id.btn_plus);
         buttonPlus.setOnClickListener(this);
-        TextView title = findViewById(R.id.title);
-        title.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-            launcher.launch(intent);
-        });
 
         for (int numberButtonId : numberButtonIds) {
             Button btn = findViewById(numberButtonId);

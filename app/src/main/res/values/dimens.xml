@@ -2,6 +2,4 @@
 <resources>
     <dimen name="width_board">1dp</dimen>
     <dimen name="corner">18dp</dimen>
-    <dimen name="padding">12dp</dimen>
-    <dimen name="header">26sp</dimen>
 </resources>
