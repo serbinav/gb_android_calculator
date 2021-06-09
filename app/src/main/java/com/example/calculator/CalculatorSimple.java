@@ -47,53 +47,8 @@ public class CalculatorSimple {
         return text.toString();
     }
 
-    String seven() {
-        text.append("7");
-        return text.toString();
-    }
-
-    String eight() {
-        text.append("8");
-        return text.toString();
-    }
-
-    String nine() {
-        text.append("9");
-        return text.toString();
-    }
-
-    String four() {
-        text.append("4");
-        return text.toString();
-    }
-
-    String five() {
-        text.append("5");
-        return text.toString();
-    }
-
-    String six() {
-        text.append("6");
-        return text.toString();
-    }
-
-    String one() {
-        text.append("1");
-        return text.toString();
-    }
-
-    String two() {
-        text.append("2");
-        return text.toString();
-    }
-
-    String three() {
-        text.append("3");
-        return text.toString();
-    }
-
-    String zero() {
-        text.append("0");
+    String addNumber(String number) {
+        text.append(number);
         return text.toString();
     }
 
