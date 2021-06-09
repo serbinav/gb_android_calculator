@@ -17,10 +17,10 @@ public class CalculatorSimpleTest {
         CalculatorSimple calc = new CalculatorSimple();
         Assert.assertEquals("1", calc.addNumber("1"));
         Assert.assertEquals("1+", calc.plus());
-        Assert.assertEquals(1.0f, calc.getNumericOne(),0);
+        Assert.assertEquals(1.0f, calc.getNumericOne(), 0);
         Assert.assertEquals('+', calc.getMathOperations());
         Assert.assertEquals("", calc.discard());
-        Assert.assertEquals(0.0f, calc.getNumericOne(),0);
+        Assert.assertEquals(0.0f, calc.getNumericOne(), 0);
         Assert.assertEquals(' ', calc.getMathOperations());
     }
 
@@ -116,7 +116,7 @@ public class CalculatorSimpleTest {
         Assert.assertEquals("0+", calc.plus());
         Assert.assertEquals("0+", calc.plus());
         Assert.assertEquals('+', calc.getMathOperations());
-        Assert.assertEquals(0.0f, calc.getNumericOne(),0);
+        Assert.assertEquals(0.0f, calc.getNumericOne(), 0);
     }
 
     @Test
@@ -127,7 +127,7 @@ public class CalculatorSimpleTest {
         Assert.assertEquals("0+1", calc.addNumber("1"));
         Assert.assertEquals("0+1", calc.plus());
         Assert.assertEquals('+', calc.getMathOperations());
-        Assert.assertEquals(0.0f, calc.getNumericOne(),0);
+        Assert.assertEquals(0.0f, calc.getNumericOne(), 0);
     }
 
     @Test
@@ -145,7 +145,7 @@ public class CalculatorSimpleTest {
         Assert.assertEquals("0-", calc.minus());
         Assert.assertEquals("0-", calc.minus());
         Assert.assertEquals('-', calc.getMathOperations());
-        Assert.assertEquals(0.0f, calc.getNumericOne(),0);
+        Assert.assertEquals(0.0f, calc.getNumericOne(), 0);
     }
 
     @Test
@@ -156,7 +156,7 @@ public class CalculatorSimpleTest {
         Assert.assertEquals("0-1", calc.addNumber("1"));
         Assert.assertEquals("0-1", calc.minus());
         Assert.assertEquals('-', calc.getMathOperations());
-        Assert.assertEquals(0.0f, calc.getNumericOne(),0);
+        Assert.assertEquals(0.0f, calc.getNumericOne(), 0);
     }
 
     @Test
@@ -174,7 +174,7 @@ public class CalculatorSimpleTest {
         Assert.assertEquals("0/", calc.divide());
         Assert.assertEquals("0/", calc.divide());
         Assert.assertEquals('/', calc.getMathOperations());
-        Assert.assertEquals(0.0f, calc.getNumericOne(),0);
+        Assert.assertEquals(0.0f, calc.getNumericOne(), 0);
     }
 
     @Test
@@ -185,7 +185,7 @@ public class CalculatorSimpleTest {
         Assert.assertEquals("0/1", calc.addNumber("1"));
         Assert.assertEquals("0/1", calc.divide());
         Assert.assertEquals('/', calc.getMathOperations());
-        Assert.assertEquals(0.0f, calc.getNumericOne(),0);
+        Assert.assertEquals(0.0f, calc.getNumericOne(), 0);
     }
 
     @Test
@@ -203,7 +203,7 @@ public class CalculatorSimpleTest {
         Assert.assertEquals("0*", calc.multiply());
         Assert.assertEquals("0*", calc.multiply());
         Assert.assertEquals('*', calc.getMathOperations());
-        Assert.assertEquals(0.0f, calc.getNumericOne(),0);
+        Assert.assertEquals(0.0f, calc.getNumericOne(), 0);
     }
 
     @Test
@@ -214,7 +214,7 @@ public class CalculatorSimpleTest {
         Assert.assertEquals("0*1", calc.addNumber("1"));
         Assert.assertEquals("0*1", calc.multiply());
         Assert.assertEquals('*', calc.getMathOperations());
-        Assert.assertEquals(0.0f, calc.getNumericOne(),0);
+        Assert.assertEquals(0.0f, calc.getNumericOne(), 0);
     }
 
     @Test
@@ -326,6 +326,22 @@ public class CalculatorSimpleTest {
         Assert.assertEquals("0", calc.addNumber("0"));
         Assert.assertArrayEquals(new String[]{"", "0"}, calc.equals());
         Assert.assertArrayEquals(new String[]{"", "0"}, calc.equals());
+        Assert.assertEquals(' ', calc.getMathOperations());
+    }
+
+    @Test
+    public void testEquals9() {
+        CalculatorSimple calc = new CalculatorSimple();
+        Assert.assertEquals("2", calc.addNumber("2"));
+        Assert.assertEquals("2+", calc.plus());
+        Assert.assertEquals("2+2", calc.addNumber("2"));
+        Assert.assertEquals('+', calc.getMathOperations());
+        Assert.assertArrayEquals(new String[]{"2+2", "4.0"}, calc.equals());
+        Assert.assertEquals(' ', calc.getMathOperations());
+        Assert.assertEquals("4.0+", calc.plus());
+        Assert.assertEquals("4.0+6", calc.addNumber("6"));
+        Assert.assertEquals('+', calc.getMathOperations());
+        Assert.assertArrayEquals(new String[]{"4.0+6", "10.0"}, calc.equals());
         Assert.assertEquals(' ', calc.getMathOperations());
     }
 }
