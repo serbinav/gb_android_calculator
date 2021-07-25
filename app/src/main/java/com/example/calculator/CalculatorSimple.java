@@ -53,7 +53,18 @@ public class CalculatorSimple {
     }
 
     String dot() {
-        if (text.indexOf(".") < 0) {
+        if (calcTwoNumber()) {
+            String textNumericTwo;
+            if (numericTwo == (long) numericTwo) {
+                textNumericTwo = String.format("%d", (long) numericTwo);
+            } else {
+                textNumericTwo = String.format("%s", numericTwo);
+            }
+
+            if (!textNumericTwo.contains(".")) {
+                text.append(".");
+            }
+        } else if (text.indexOf(".") < 0) {
             text.append(".");
         }
         return text.toString();
