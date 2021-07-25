@@ -1,5 +1,6 @@
 package com.example.calculator;
 
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -108,24 +109,24 @@ public class CalculatorSimple {
 
     String[] equals() {
         if (calcTwoNumber()) {
-            float total = 0.0f;
+            BigDecimal total = BigDecimal.ZERO;
             switch (mathOperations) {
                 case '+':
-                    total = numericOne + numericTwo;
+                    total = new BigDecimal(Float.toString(numericOne)).add(new BigDecimal(Float.toString(numericTwo)));
                     break;
                 case '-':
-                    total = numericOne - numericTwo;
+                    total = new BigDecimal(Float.toString(numericOne)).subtract(new BigDecimal(Float.toString(numericTwo)));
                     break;
                 case '/':
-                    total = numericOne / numericTwo;
+                    total = new BigDecimal(Float.toString(numericOne)).divide(new BigDecimal(Float.toString(numericTwo)));
                     break;
                 case '*':
-                    total = numericOne * numericTwo;
+                    total = new BigDecimal(Float.toString(numericOne)).multiply(new BigDecimal(Float.toString(numericTwo)));
                     break;
             }
             String temp = text.toString();
             text.setLength(0);
-            text.append(total);
+            text.append(total.toString());
             mathOperations = ' ';
             return new String[]{temp, text.toString()};
         }
