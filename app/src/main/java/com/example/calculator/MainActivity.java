@@ -1,13 +1,17 @@
 package com.example.calculator;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -15,42 +19,78 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             R.id.btn_three, R.id.btn_four, R.id.btn_five, R.id.btn_six, R.id.btn_seven,
             R.id.btn_eight, R.id.btn_nine};
 
-    TextView textOut;
-    EditText textInput;
-    Button buttonDiscard, buttonChangeSymbol, buttonPercent, buttonDelete, buttonDivide,
+    private TextView textOut;
+    private EditText textInput;
+    private Button buttonDiscard, buttonChangeSymbol, buttonPercent, buttonDelete, buttonDivide,
             buttonMultiply, buttonMinus, buttonDot, buttonEquals, buttonPlus;
-    CalculatorSimple calc = new CalculatorSimple();
+    private CalculatorSimple calc = new CalculatorSimple();
+
+    private StorageThemes prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        prefs = new StorageThemes(this);
+        setTheme(prefs.getThemes().getResource());
         setContentView(R.layout.activity_main);
 
-        textOut = (TextView) findViewById(R.id.text_out);
-        textInput = (EditText) findViewById(R.id.text_input);
-        buttonDiscard = (Button) findViewById(R.id.btn_discard);
+        ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        if (result.getData() != null) {
+                            String chose = result.getData().getStringExtra(
+                                    SettingsActivity.KEY_BUNDLE
+                            );
+                            switch (chose) {
+                                case "second_themes":
+                                    prefs.setThemes(ApplicationThemes.TWO_THEMES);
+                                    recreate();
+                                    break;
+                                case "third_themes":
+                                    prefs.setThemes(ApplicationThemes.THREE_THEMES);
+                                    recreate();
+                                    break;
+                                default:
+                                    prefs.setThemes(ApplicationThemes.ONE_THEMES);
+                                    recreate();
+                                    break;
+                            }
+                        }
+                    }
+                }
+        );
+
+        textOut = findViewById(R.id.text_out);
+        textInput = findViewById(R.id.text_input);
+        buttonDiscard = findViewById(R.id.btn_discard);
         buttonDiscard.setOnClickListener(this);
-        buttonChangeSymbol = (Button) findViewById(R.id.btn_change_symbol);
+        buttonChangeSymbol = findViewById(R.id.btn_change_symbol);
         buttonChangeSymbol.setOnClickListener(this);
-        buttonPercent = (Button) findViewById(R.id.btn_percent);
+        buttonPercent = findViewById(R.id.btn_percent);
         buttonPercent.setOnClickListener(this);
-        buttonDelete = (Button) findViewById(R.id.btn_delete);
+        buttonDelete = findViewById(R.id.btn_delete);
         buttonDelete.setOnClickListener(this);
-        buttonDivide = (Button) findViewById(R.id.btn_divide);
+        buttonDivide = findViewById(R.id.btn_divide);
         buttonDivide.setOnClickListener(this);
-        buttonMultiply = (Button) findViewById(R.id.btn_multiply);
+        buttonMultiply = findViewById(R.id.btn_multiply);
         buttonMultiply.setOnClickListener(this);
-        buttonMinus = (Button) findViewById(R.id.btn_minus);
+        buttonMinus = findViewById(R.id.btn_minus);
         buttonMinus.setOnClickListener(this);
-        buttonDot = (Button) findViewById(R.id.btn_dot);
+        buttonDot = findViewById(R.id.btn_dot);
         buttonDot.setOnClickListener(this);
-        buttonEquals = (Button) findViewById(R.id.btn_equals);
+        buttonEquals = findViewById(R.id.btn_equals);
         buttonEquals.setOnClickListener(this);
-        buttonPlus = (Button) findViewById(R.id.btn_plus);
+        buttonPlus = findViewById(R.id.btn_plus);
         buttonPlus.setOnClickListener(this);
+        TextView title = findViewById(R.id.title);
+        title.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            launcher.launch(intent);
+        });
 
         for (int numberButtonId : numberButtonIds) {
-            Button btn = (Button) findViewById(numberButtonId);
+            Button btn = findViewById(numberButtonId);
             btn.setOnClickListener(this);
         }
 

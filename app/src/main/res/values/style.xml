@@ -43,4 +43,10 @@
         <item name="android:textColor">@color/accent</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="text.input.header">
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">@dimen/header</item>
+    </style>
 </resources>

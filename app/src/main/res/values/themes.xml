@@ -17,10 +17,14 @@
     <style name="Theme.Calculator.Another">
         <item name="colorPrimary">@color/indigo_500</item>
         <item name="colorPrimaryVariant">@color/indigo_700</item>
-        <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/blue_grey_200</item>
         <item name="colorSecondaryVariant">@color/blue_grey_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <style name="Theme.Calculator.Light">
+        <item name="colorPrimary">@color/pink_500</item>
+        <item name="colorPrimaryVariant">@color/pink_700</item>
+        <item name="colorSecondary">@color/orange_200</item>
+        <item name="colorSecondaryVariant">@color/orange_700</item>
     </style>
 </resources>
