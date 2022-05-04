@@ -11,14 +11,14 @@
         style="@style/text.input.header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="@string/app_name_ru"/>
+        android:text="@string/app_name_ru"
+        android:textAlignment="center" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_out"
         style="@style/text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/text_input"
@@ -26,8 +26,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:inputType="number"/>
+        android:inputType="number" />
 
-    <include layout="@layout/activity_background" />
+    <include
+        android:id="@+id/background"
+        layout="@layout/activity_background" />
 
 </LinearLayout>

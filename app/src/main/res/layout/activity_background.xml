@@ -9,6 +9,8 @@
         android:scaleType="centerCrop"
         android:src="@drawable/crash" />
 
-    <include layout="@layout/activity_numpad" />
+    <include
+        android:id="@+id/numpad"
+        layout="@layout/activity_numpad" />
 
 </FrameLayout>
