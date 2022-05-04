@@ -13,6 +13,12 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+//        1.Выберите подходящее приложение,над которым вы уже работали в течение вашего обучения.
+//        Возможно,это будут ранние версии приложений,написанных на MVP(Популярные библиотеки,
+//        Профессиональная разработка приложений).Или Разбейте на слои приложения,
+//        которые вы писали в самом начале обучения(Калькулятор,Заметки,Погода,Кино).
+//        2.Напишите тесты для Презентера с использованием моков.
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final int[] numberButtonIds = new int[]{R.id.btn_zero, R.id.btn_one, R.id.btn_two,
