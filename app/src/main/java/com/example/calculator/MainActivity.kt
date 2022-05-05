@@ -59,75 +59,75 @@ class MainActivity : AppCompatActivity() {
             background.numpad.btnDiscard.setOnClickListener {
                 textInput.setText(calc.discard())
             }
-            background.numpad.btnChangeSymbol.setOnClickListener{
+            background.numpad.btnChangeSymbol.setOnClickListener {
                 textInput.setText(calc.changeSymbol())
             }
-            background.numpad.btnPercent.setOnClickListener{
+            background.numpad.btnPercent.setOnClickListener {
                 textInput.setText(calc.percent())
             }
-            background.numpad.btnDelete.setOnClickListener{
+            background.numpad.btnDelete.setOnClickListener {
                 textInput.setText(calc.delete())
             }
-            background.numpad.btnDivide.setOnClickListener{
+            background.numpad.btnDivide.setOnClickListener {
                 textInput.setText(calc.divide())
             }
-            background.numpad.btnMultiply.setOnClickListener{
+            background.numpad.btnMultiply.setOnClickListener {
                 textInput.setText(calc.multiply())
             }
-            background.numpad.btnMinus.setOnClickListener{
+            background.numpad.btnMinus.setOnClickListener {
                 textInput.setText(calc.minus())
             }
-            background.numpad.btnDot.setOnClickListener{
+            background.numpad.btnDot.setOnClickListener {
                 textInput.setText(calc.dot())
             }
-            background.numpad.btnEquals.setOnClickListener{
+            background.numpad.btnEquals.setOnClickListener {
                 val calcData = calc.equals()
                 textOut.text = calcData[0]
                 textInput.setText(calcData[1])
             }
-            background.numpad.btnPlus.setOnClickListener{
+            background.numpad.btnPlus.setOnClickListener {
                 textInput.setText(calc.plus())
             }
 
-            background.numpad.btnZero.setOnClickListener{
-                calc.addNumber("0")
-                textInput.setText("0")
+            background.numpad.btnZero.setOnClickListener {
+                val textForInput = calc.addNumber("0")
+                textInput.setText(textForInput)
             }
-            background.numpad.btnOne.setOnClickListener{
-                calc.addNumber("1")
-                textInput.setText("1")
+            background.numpad.btnOne.setOnClickListener {
+                val textForInput = calc.addNumber("1")
+                textInput.setText(textForInput)
             }
-            background.numpad.btnTwo.setOnClickListener{
-                calc.addNumber("2")
-                textInput.setText("2")
+            background.numpad.btnTwo.setOnClickListener {
+                val textForInput = calc.addNumber("2")
+                textInput.setText(textForInput)
             }
-            background.numpad.btnThree.setOnClickListener{
-                calc.addNumber("3")
-                textInput.setText("3")
+            background.numpad.btnThree.setOnClickListener {
+                val textForInput = calc.addNumber("3")
+                textInput.setText(textForInput)
             }
-            background.numpad.btnFour.setOnClickListener{
-                calc.addNumber("4")
-                textInput.setText("4")
+            background.numpad.btnFour.setOnClickListener {
+                val textForInput = calc.addNumber("4")
+                textInput.setText(textForInput)
             }
-            background.numpad.btnFive.setOnClickListener{
-                calc.addNumber("5")
-                textInput.setText("5")
+            background.numpad.btnFive.setOnClickListener {
+                val textForInput = calc.addNumber("5")
+                textInput.setText(textForInput)
             }
-            background.numpad.btnSix.setOnClickListener{
-                calc.addNumber("6")
-                textInput.setText("6")
+            background.numpad.btnSix.setOnClickListener {
+                val textForInput = calc.addNumber("6")
+                textInput.setText(textForInput)
             }
-            background.numpad.btnSeven.setOnClickListener{
-                calc.addNumber("7")
-                textInput.setText("7")
+            background.numpad.btnSeven.setOnClickListener {
+                val textForInput = calc.addNumber("7")
+                textInput.setText(textForInput)
             }
-            background.numpad.btnEight.setOnClickListener{
-                calc.addNumber("8")
-                textInput.setText("8")
+            background.numpad.btnEight.setOnClickListener {
+                val textForInput = calc.addNumber("8")
+                textInput.setText(textForInput)
             }
-            background.numpad.btnNine.setOnClickListener{
-                calc.addNumber("9")
-                textInput.setText("9")
+            background.numpad.btnNine.setOnClickListener {
+                val textForInput = calc.addNumber("9")
+                textInput.setText(textForInput)
             }
         }
 
