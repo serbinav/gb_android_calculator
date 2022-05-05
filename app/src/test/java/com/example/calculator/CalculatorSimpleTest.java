@@ -253,7 +253,7 @@ public class CalculatorSimpleTest {
         Assert.assertEquals("0/", calc.divide());
         Assert.assertEquals("0/0", calc.addNumber("0"));
         Assert.assertEquals('/', calc.getMathOperations());
-        Assert.assertArrayEquals(new String[]{"0/0", "NaN"}, calc.equals());
+        Assert.assertArrayEquals(new String[]{"0/0", "Division undefined"}, calc.equals());
         Assert.assertEquals(' ', calc.getMathOperations());
     }
 
@@ -264,7 +264,7 @@ public class CalculatorSimpleTest {
         Assert.assertEquals("1/", calc.divide());
         Assert.assertEquals("1/0", calc.addNumber("0"));
         Assert.assertEquals('/', calc.getMathOperations());
-        Assert.assertArrayEquals(new String[]{"1/0", "Infinity"}, calc.equals());
+        Assert.assertArrayEquals(new String[]{"1/0", "Division by zero"}, calc.equals());
         Assert.assertEquals(' ', calc.getMathOperations());
     }
 
@@ -297,7 +297,7 @@ public class CalculatorSimpleTest {
         Assert.assertEquals("8/", calc.divide());
         Assert.assertEquals("8/4", calc.addNumber("4"));
         Assert.assertEquals('/', calc.getMathOperations());
-        Assert.assertArrayEquals(new String[]{"8/4", "2.0"}, calc.equals());
+        Assert.assertArrayEquals(new String[]{"8/4", "2"}, calc.equals());
         Assert.assertEquals(' ', calc.getMathOperations());
     }
 
@@ -308,7 +308,7 @@ public class CalculatorSimpleTest {
         Assert.assertEquals("5*", calc.multiply());
         Assert.assertEquals("5*6", calc.addNumber("6"));
         Assert.assertEquals('*', calc.getMathOperations());
-        Assert.assertArrayEquals(new String[]{"5*6", "30.0"}, calc.equals());
+        Assert.assertArrayEquals(new String[]{"5*6", "30.00"}, calc.equals());
         Assert.assertEquals(' ', calc.getMathOperations());
     }
 

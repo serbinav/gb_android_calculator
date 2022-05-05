@@ -109,24 +109,32 @@ public class CalculatorSimple {
 
     String[] equals() {
         if (calcTwoNumber()) {
-            BigDecimal total = BigDecimal.ZERO;
+            String total = "";
             switch (mathOperations) {
                 case '+':
-                    total = new BigDecimal(Float.toString(numericOne)).add(new BigDecimal(Float.toString(numericTwo)));
+                    total = new BigDecimal(Float.toString(numericOne))
+                            .add(new BigDecimal(Float.toString(numericTwo))).toString();
                     break;
                 case '-':
-                    total = new BigDecimal(Float.toString(numericOne)).subtract(new BigDecimal(Float.toString(numericTwo)));
+                    total = new BigDecimal(Float.toString(numericOne))
+                            .subtract(new BigDecimal(Float.toString(numericTwo))).toString();
                     break;
                 case '/':
-                    total = new BigDecimal(Float.toString(numericOne)).divide(new BigDecimal(Float.toString(numericTwo)));
+                    try {
+                        total = new BigDecimal(Float.toString(numericOne))
+                                .divide(new BigDecimal(Float.toString(numericTwo))).toString();
+                    } catch (ArithmeticException ex) {
+                        total = ex.getMessage();
+                    }
                     break;
                 case '*':
-                    total = new BigDecimal(Float.toString(numericOne)).multiply(new BigDecimal(Float.toString(numericTwo)));
+                    total = new BigDecimal(Float.toString(numericOne))
+                            .multiply(new BigDecimal(Float.toString(numericTwo))).toString();
                     break;
             }
             String temp = text.toString();
             text.setLength(0);
-            text.append(total.toString());
+            text.append(total);
             mathOperations = ' ';
             return new String[]{temp, text.toString()};
         }
