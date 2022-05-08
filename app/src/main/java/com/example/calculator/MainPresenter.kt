@@ -3,33 +3,63 @@ package com.example.calculator
 import java.math.BigDecimal
 import java.util.regex.Pattern
 
-class CalculatorSimple {
+class MainPresenter<V : MainContract.View> : MainContract.Presenter<V> {
 
+    private var currentView: V? = null
     private val text = StringBuilder()
-    var numericOne = 0.0f
-        private set
-    var mathOperations = ' '
-        private set
+    private var numericOne = 0.0f
+    private var mathOperations = ' '
     private var numericTwo = 0.0f
 
-    fun discard(): String {
+    override fun getNumericOne(): Float {
+        return numericOne
+    }
+
+    override fun getMathOperations(): Char {
+        return mathOperations
+    }
+
+    override fun attachView(view: V) {
+        if (view != currentView) {
+            currentView = view
+        }
+    }
+
+    override fun detachView(view: V) {
+        if (view == currentView) {
+            currentView = null
+        }
+    }
+
+    override fun discard() {
         text.setLength(0)
         numericOne = 0.0f
         mathOperations = ' '
         numericTwo = 0.0f
-        return text.toString()
+        currentView?.setInputText(text.toString())
     }
 
-    fun changeSymbol(): String {
+    override fun changeSymbol() {
         if (text.isNotEmpty() && text[0] == '-') {
             text.deleteCharAt(0)
         } else {
             text.insert(0, "-")
         }
-        return text.toString()
+        currentView?.setInputText(text.toString())
     }
 
-    fun delete(): String {
+    override fun percent() {
+        if (calcTwoNumber()) {
+            if (!numericOne.equals(0.0f) && !numericTwo.equals(0.0f)) {
+                val totalPercent = numericOne * numericTwo / 100
+                text.setLength(0)
+                text.append(numericOne).append(mathOperations).append(totalPercent)
+            }
+        }
+        currentView?.setInputText(text.toString())
+    }
+
+    override fun delete() {
         if (text.isNotEmpty()) {
             val p = Pattern.compile("\\S*[+-/*]$")
             val m = p.matcher(text.toString())
@@ -38,15 +68,37 @@ class CalculatorSimple {
             }
             text.setLength(text.length - 1)
         }
-        return text.toString()
+        currentView?.setInputText(text.toString())
     }
 
-    fun addNumber(number: String?): String {
-        text.append(number)
-        return text.toString()
+    override fun divide() {
+        if (text.isNotEmpty() && mathOperations == ' ') {
+            numericOne = text.toString().toFloat()
+            mathOperations = '/'
+            text.append("/")
+        }
+        currentView?.setInputText(text.toString())
     }
 
-    fun dot(): String {
+    override fun multiply() {
+        if (text.isNotEmpty() && mathOperations == ' ') {
+            numericOne = text.toString().toFloat()
+            mathOperations = '*'
+            text.append("*")
+        }
+        currentView?.setInputText(text.toString())
+    }
+
+    override fun minus() {
+        if (text.isNotEmpty() && mathOperations == ' ') {
+            numericOne = text.toString().toFloat()
+            mathOperations = '-'
+            text.append("-")
+        }
+        currentView?.setInputText(text.toString())
+    }
+
+    override fun dot() {
         if (calcTwoNumber()) {
             val textNumericTwo = if (numericTwo > numericTwo.toInt()) {
                 String.format("%d", numericTwo.toLong())
@@ -59,46 +111,24 @@ class CalculatorSimple {
         } else if (text.indexOf(".") < 0) {
             text.append(".")
         }
-        return text.toString()
+        currentView?.setInputText(text.toString())
     }
 
-    fun plus(): String {
+    override fun plus() {
         if (text.isNotEmpty() && mathOperations == ' ') {
             numericOne = text.toString().toFloat()
             mathOperations = '+'
             text.append("+")
         }
-        return text.toString()
+        currentView?.setInputText(text.toString())
     }
 
-    fun minus(): String {
-        if (text.isNotEmpty() && mathOperations == ' ') {
-            numericOne = text.toString().toFloat()
-            mathOperations = '-'
-            text.append("-")
-        }
-        return text.toString()
+    override fun addNumber(number: String) {
+        text.append(number)
+        currentView?.setInputText(text.toString())
     }
 
-    fun divide(): String {
-        if (text.isNotEmpty() && mathOperations == ' ') {
-            numericOne = text.toString().toFloat()
-            mathOperations = '/'
-            text.append("/")
-        }
-        return text.toString()
-    }
-
-    fun multiply(): String {
-        if (text.isNotEmpty() && mathOperations == ' ') {
-            numericOne = text.toString().toFloat()
-            mathOperations = '*'
-            text.append("*")
-        }
-        return text.toString()
-    }
-
-    fun equals(): Array<String> {
+    override fun equals() {
         if (calcTwoNumber()) {
             var total = ""
             when (mathOperations) {
@@ -119,21 +149,11 @@ class CalculatorSimple {
             text.setLength(0)
             text.append(total)
             mathOperations = ' '
-            return arrayOf(temp, text.toString())
+            currentView?.setOperationsText(temp)
+        } else {
+            currentView?.setOperationsText("")
         }
-        return arrayOf("", text.toString())
-    }
-
-    fun percent(): String {
-        if (calcTwoNumber()) {
-            if (!numericOne.equals(0.0f) && !numericTwo.equals(0.0f)) {
-                val totalPercent = numericOne * numericTwo / 100
-                text.setLength(0)
-                text.append(numericOne).append(mathOperations).append(totalPercent)
-            }
-            return text.toString()
-        }
-        return text.toString()
+        currentView?.setInputText(text.toString())
     }
 
     private fun calcTwoNumber(): Boolean {

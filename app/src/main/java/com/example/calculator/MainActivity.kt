@@ -2,6 +2,7 @@ package com.example.calculator
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
@@ -14,11 +15,11 @@ import com.example.calculator.databinding.ActivityMainBinding
 //        которые вы писали в самом начале обучения(Калькулятор,Заметки,Погода,Кино).
 //        2.Напишите тесты для Презентера с использованием моков.
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var prefs: StorageThemes
-    private val calc = CalculatorSimple()
+    private lateinit var presenter: MainContract.Presenter<MainContract.View>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        presenter = MainPresenter()
 
         val launcher = registerForActivityResult(
             StartActivityForResult()
@@ -56,79 +58,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.apply {
-            background.numpad.btnDiscard.setOnClickListener {
-                textInput.setText(calc.discard())
-            }
-            background.numpad.btnChangeSymbol.setOnClickListener {
-                textInput.setText(calc.changeSymbol())
-            }
-            background.numpad.btnPercent.setOnClickListener {
-                textInput.setText(calc.percent())
-            }
-            background.numpad.btnDelete.setOnClickListener {
-                textInput.setText(calc.delete())
-            }
-            background.numpad.btnDivide.setOnClickListener {
-                textInput.setText(calc.divide())
-            }
-            background.numpad.btnMultiply.setOnClickListener {
-                textInput.setText(calc.multiply())
-            }
-            background.numpad.btnMinus.setOnClickListener {
-                textInput.setText(calc.minus())
-            }
-            background.numpad.btnDot.setOnClickListener {
-                textInput.setText(calc.dot())
-            }
-            background.numpad.btnEquals.setOnClickListener {
-                val calcData = calc.equals()
-                textOut.text = calcData[0]
-                textInput.setText(calcData[1])
-            }
-            background.numpad.btnPlus.setOnClickListener {
-                textInput.setText(calc.plus())
-            }
-
-            background.numpad.btnZero.setOnClickListener {
-                val textForInput = calc.addNumber("0")
-                textInput.setText(textForInput)
-            }
-            background.numpad.btnOne.setOnClickListener {
-                val textForInput = calc.addNumber("1")
-                textInput.setText(textForInput)
-            }
-            background.numpad.btnTwo.setOnClickListener {
-                val textForInput = calc.addNumber("2")
-                textInput.setText(textForInput)
-            }
-            background.numpad.btnThree.setOnClickListener {
-                val textForInput = calc.addNumber("3")
-                textInput.setText(textForInput)
-            }
-            background.numpad.btnFour.setOnClickListener {
-                val textForInput = calc.addNumber("4")
-                textInput.setText(textForInput)
-            }
-            background.numpad.btnFive.setOnClickListener {
-                val textForInput = calc.addNumber("5")
-                textInput.setText(textForInput)
-            }
-            background.numpad.btnSix.setOnClickListener {
-                val textForInput = calc.addNumber("6")
-                textInput.setText(textForInput)
-            }
-            background.numpad.btnSeven.setOnClickListener {
-                val textForInput = calc.addNumber("7")
-                textInput.setText(textForInput)
-            }
-            background.numpad.btnEight.setOnClickListener {
-                val textForInput = calc.addNumber("8")
-                textInput.setText(textForInput)
-            }
-            background.numpad.btnNine.setOnClickListener {
-                val textForInput = calc.addNumber("9")
-                textInput.setText(textForInput)
-            }
+            background.numpad.btnDiscard.setOnClickListener { clickButtonDiscard() }
+            background.numpad.btnChangeSymbol.setOnClickListener { clickButtonChangeSymbol() }
+            background.numpad.btnPercent.setOnClickListener { clickButtonPercent() }
+            background.numpad.btnDelete.setOnClickListener { clickButtonDelete() }
+            background.numpad.btnDivide.setOnClickListener { clickButtonDivide() }
+            background.numpad.btnMultiply.setOnClickListener { clickButtonMultiply() }
+            background.numpad.btnMinus.setOnClickListener { clickButtonMinus() }
+            background.numpad.btnDot.setOnClickListener { clickButtonDot() }
+            background.numpad.btnEquals.setOnClickListener { clickButtonEquals() }
+            background.numpad.btnPlus.setOnClickListener { clickButtonPlus() }
+            background.numpad.btnZero.setOnClickListener { clickButtonZero() }
+            background.numpad.btnOne.setOnClickListener { clickButtonOne() }
+            background.numpad.btnTwo.setOnClickListener { clickButtonTwo() }
+            background.numpad.btnThree.setOnClickListener { clickButtonThree() }
+            background.numpad.btnFour.setOnClickListener { clickButtonFour() }
+            background.numpad.btnFive.setOnClickListener { clickButtonFive() }
+            background.numpad.btnSix.setOnClickListener { clickButtonSix() }
+            background.numpad.btnSeven.setOnClickListener { clickButtonSeven() }
+            background.numpad.btnEight.setOnClickListener { clickButtonEight() }
+            background.numpad.btnNine.setOnClickListener { clickButtonNine() }
         }
 
         binding.title.setOnClickListener {
@@ -140,5 +89,107 @@ class MainActivity : AppCompatActivity() {
         }
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter.attachView(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.detachView(this)
+    }
+
+    override fun clickButtonDiscard() {
+        presenter.discard()
+    }
+
+    override fun clickButtonChangeSymbol() {
+        presenter.changeSymbol()
+    }
+
+    override fun clickButtonPercent() {
+        presenter.percent()
+    }
+
+    override fun clickButtonDelete() {
+        presenter.delete()
+    }
+
+    override fun clickButtonDivide() {
+        presenter.divide()
+    }
+
+    override fun clickButtonMultiply() {
+        presenter.multiply()
+    }
+
+    override fun clickButtonMinus() {
+        presenter.minus()
+    }
+
+    override fun clickButtonDot() {
+        presenter.dot()
+    }
+
+    override fun clickButtonPlus() {
+        presenter.plus()
+    }
+
+    override fun clickButtonZero() {
+        presenter.addNumber("0")
+    }
+
+    override fun clickButtonOne() {
+        presenter.addNumber("1")
+    }
+
+    override fun clickButtonTwo() {
+        presenter.addNumber("2")
+    }
+
+    override fun clickButtonThree() {
+        presenter.addNumber("3")
+    }
+
+    override fun clickButtonFour() {
+        presenter.addNumber("4")
+    }
+
+    override fun clickButtonFive() {
+        presenter.addNumber("5")
+    }
+
+    override fun clickButtonSix() {
+        presenter.addNumber("6")
+    }
+
+    override fun clickButtonSeven() {
+        presenter.addNumber("7")
+    }
+
+    override fun clickButtonEight() {
+        presenter.addNumber("8")
+    }
+
+    override fun clickButtonNine() {
+        presenter.addNumber("9")
+    }
+
+    override fun clickButtonEquals() {
+        presenter.equals()
+    }
+
+    override fun showError(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+    }
+
+    override fun setOperationsText(text: String) {
+        binding.operationsText.text = text
+    }
+
+    override fun setInputText(text: String) {
+        binding.inputText.setText(text)
     }
 }
