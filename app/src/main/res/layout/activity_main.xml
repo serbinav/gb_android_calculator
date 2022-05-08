@@ -15,13 +15,13 @@
         android:textAlignment="center" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_out"
+        android:id="@+id/operations_text"
         style="@style/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/text_input"
+        android:id="@+id/input_text"
         style="@style/text.input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
