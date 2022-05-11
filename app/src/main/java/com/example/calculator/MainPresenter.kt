@@ -104,12 +104,10 @@ class MainPresenter<V : MainContract.View>(private val model: MainRepository) :
     override fun dot() {
         val text = model.getOutputText()
         if (calcTwoNumber()) {
-            val textNumericTwo = if (model.getNumericTwo() > model.getNumericTwo().toInt()) {
+            if (model.getNumericTwo() > model.getNumericTwo().toInt()) {
                 String.format("%s", model.getNumericTwo())
             } else {
                 String.format("%d", model.getNumericTwo().toLong())
-            }
-            if (!textNumericTwo.contains(".")) {
                 text.append(".")
             }
         } else if (text.indexOf(".") < 0) {
