@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        presenter = MainPresenter()
+        presenter = MainPresenter(LocalModel())
 
         val launcher = registerForActivityResult(
             StartActivityForResult()

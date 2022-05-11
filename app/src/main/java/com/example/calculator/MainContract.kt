@@ -47,9 +47,5 @@ interface MainContract {
         fun plus()
         fun addNumber(number: String)
         fun equals()
-
-        //TODO удалить
-        fun getNumericOne(): Float
-        fun getMathOperations(): Char
     }
 }

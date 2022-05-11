@@ -1,23 +1,13 @@
 package com.example.calculator
 
+import java.lang.StringBuilder
 import java.math.BigDecimal
 import java.util.regex.Pattern
 
-class MainPresenter<V : MainContract.View> : MainContract.Presenter<V> {
+class MainPresenter<V : MainContract.View>(private val model: MainRepository) :
+    MainContract.Presenter<V> {
 
     private var currentView: V? = null
-    private val text = StringBuilder()
-    private var numericOne = 0.0f
-    private var mathOperations = ' '
-    private var numericTwo = 0.0f
-
-    override fun getNumericOne(): Float {
-        return numericOne
-    }
-
-    override fun getMathOperations(): Char {
-        return mathOperations
-    }
 
     override fun attachView(view: V) {
         if (view != currentView) {
@@ -32,78 +22,92 @@ class MainPresenter<V : MainContract.View> : MainContract.Presenter<V> {
     }
 
     override fun discard() {
-        text.setLength(0)
-        numericOne = 0.0f
-        mathOperations = ' '
-        numericTwo = 0.0f
-        currentView?.setInputText(text.toString())
+        model.setOutputText(StringBuilder())
+        model.setNumericOne(0.0f)
+        model.setMathOperations(' ')
+        model.setNumericTwo(0.0f)
+        currentView?.setInputText(model.getOutputText().toString())
     }
 
     override fun changeSymbol() {
+        val text = model.getOutputText()
         if (text.isNotEmpty() && text[0] == '-') {
             text.deleteCharAt(0)
         } else {
             text.insert(0, "-")
         }
+        model.setOutputText(text)
         currentView?.setInputText(text.toString())
     }
 
     override fun percent() {
+        var text = model.getOutputText()
         if (calcTwoNumber()) {
-            if (!numericOne.equals(0.0f) && !numericTwo.equals(0.0f)) {
-                val totalPercent = numericOne * numericTwo / 100
-                text.setLength(0)
-                text.append(numericOne).append(mathOperations).append(totalPercent)
+            if (!model.getNumericOne().equals(0.0f) && !model.getNumericTwo().equals(0.0f)) {
+                val totalPercent = model.getNumericOne() * model.getNumericTwo() / 100
+                text = StringBuilder()
+                text.append(model.getNumericOne()).append(model.getMathOperations())
+                    .append(totalPercent)
             }
         }
+        model.setOutputText(text)
         currentView?.setInputText(text.toString())
     }
 
     override fun delete() {
+        val text = model.getOutputText()
         if (text.isNotEmpty()) {
             val p = Pattern.compile("\\S*[+-/*]$")
             val m = p.matcher(text.toString())
             if (m.matches()) {
-                mathOperations = ' '
+                model.setMathOperations(' ')
             }
             text.setLength(text.length - 1)
         }
+        model.setOutputText(text)
         currentView?.setInputText(text.toString())
     }
 
     override fun divide() {
-        if (text.isNotEmpty() && mathOperations == ' ') {
-            numericOne = text.toString().toFloat()
-            mathOperations = '/'
+        val text = model.getOutputText()
+        if (text.isNotEmpty() && model.getMathOperations() == ' ') {
+            model.setNumericOne(text.toString().toFloat())
+            model.setMathOperations('/')
             text.append("/")
         }
+        model.setOutputText(text)
         currentView?.setInputText(text.toString())
     }
 
     override fun multiply() {
-        if (text.isNotEmpty() && mathOperations == ' ') {
-            numericOne = text.toString().toFloat()
-            mathOperations = '*'
+        val text = model.getOutputText()
+        if (text.isNotEmpty() && model.getMathOperations() == ' ') {
+            model.setNumericOne(text.toString().toFloat())
+            model.setMathOperations('*')
             text.append("*")
         }
+        model.setOutputText(text)
         currentView?.setInputText(text.toString())
     }
 
     override fun minus() {
-        if (text.isNotEmpty() && mathOperations == ' ') {
-            numericOne = text.toString().toFloat()
-            mathOperations = '-'
+        val text = model.getOutputText()
+        if (text.isNotEmpty() && model.getMathOperations() == ' ') {
+            model.setNumericOne(text.toString().toFloat())
+            model.setMathOperations('-')
             text.append("-")
         }
+        model.setOutputText(text)
         currentView?.setInputText(text.toString())
     }
 
     override fun dot() {
+        val text = model.getOutputText()
         if (calcTwoNumber()) {
-            val textNumericTwo = if (numericTwo > numericTwo.toInt()) {
-                String.format("%d", numericTwo.toLong())
+            val textNumericTwo = if (model.getNumericTwo() > model.getNumericTwo().toInt()) {
+                String.format("%s", model.getNumericTwo())
             } else {
-                String.format("%s", numericTwo)
+                String.format("%d", model.getNumericTwo().toLong())
             }
             if (!textNumericTwo.contains(".")) {
                 text.append(".")
@@ -111,56 +115,66 @@ class MainPresenter<V : MainContract.View> : MainContract.Presenter<V> {
         } else if (text.indexOf(".") < 0) {
             text.append(".")
         }
+        model.setOutputText(text)
         currentView?.setInputText(text.toString())
     }
 
     override fun plus() {
-        if (text.isNotEmpty() && mathOperations == ' ') {
-            numericOne = text.toString().toFloat()
-            mathOperations = '+'
+        val text = model.getOutputText()
+        if (text.isNotEmpty() && model.getMathOperations() == ' ') {
+            model.setNumericOne(text.toString().toFloat())
+            model.setMathOperations('+')
             text.append("+")
         }
+        model.setOutputText(text)
         currentView?.setInputText(text.toString())
     }
 
     override fun addNumber(number: String) {
+        val text = model.getOutputText()
         text.append(number)
+        model.setOutputText(text)
         currentView?.setInputText(text.toString())
     }
 
     override fun equals() {
+        val text = model.getOutputText()
         if (calcTwoNumber()) {
             var total = ""
-            when (mathOperations) {
-                '+' -> total = BigDecimal(numericOne.toString())
-                    .add(BigDecimal(numericTwo.toString())).toString()
-                '-' -> total = BigDecimal(numericOne.toString())
-                    .subtract(BigDecimal(numericTwo.toString())).toString()
+            when (model.getMathOperations()) {
+                '+' -> total = BigDecimal(model.getNumericOne().toString())
+                    .add(BigDecimal(model.getNumericTwo().toString())).toString()
+                '-' -> total = BigDecimal(model.getNumericOne().toString())
+                    .subtract(BigDecimal(model.getNumericTwo().toString())).toString()
                 '/' -> total = try {
-                    BigDecimal(numericOne.toString())
-                        .divide(BigDecimal(numericTwo.toString())).toString()
+                    BigDecimal(model.getNumericOne().toString())
+                        .divide(BigDecimal(model.getNumericTwo().toString())).toString()
                 } catch (ex: ArithmeticException) {
                     ex.message ?: "Another exception"
                 }
-                '*' -> total = BigDecimal(numericOne.toString())
-                    .multiply(BigDecimal(numericTwo.toString())).toString()
+                '*' -> total = BigDecimal(model.getNumericOne().toString())
+                    .multiply(BigDecimal(model.getNumericTwo().toString())).toString()
             }
-            val temp = text.toString()
+            val temp = model.getOutputText().toString()
             text.setLength(0)
             text.append(total)
-            mathOperations = ' '
+            model.setMathOperations(' ')
             currentView?.setOperationsText(temp)
         } else {
             currentView?.setOperationsText("")
         }
+        model.setOutputText(text)
         currentView?.setInputText(text.toString())
     }
 
-    private fun calcTwoNumber(): Boolean {
-        val numeric = text.toString().split("[$mathOperations]".toRegex()).toTypedArray()
+    @Deprecated("for internal use only")
+    fun calcTwoNumber(): Boolean {
+        val char = model.getMathOperations()
+        val numeric =
+            model.getOutputText().toString().split("[$char]".toRegex()).toTypedArray()
         if (numeric.size == 2) {
             if (numeric[1].isNotEmpty()) {
-                numericTwo = numeric[1].toFloat()
+                model.setNumericTwo(numeric[1].toFloat())
             }
             return true
         }
