@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class PresenterTestOld {
 
-    MainContract.Presenter<MainContract.View> presenter = new MainPresenter();
+//    MainContract.Presenter<MainContract.View> presenter = new MainPresenter();
 
 //    @Test
 //    public void testDiscard1() {
