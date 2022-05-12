@@ -64,6 +64,13 @@ class MainPresenterTest {
 
     //-------------------------------------------------------------------------------------------------
     @Test
+    fun percent_isEmpty() {
+        Mockito.`when`(model.getOutputText()).thenReturn(StringBuilder())
+        presenter.percent()
+        Mockito.verify(viewContract, Mockito.times(1)).setInputText("")
+    }
+
+    @Test
     fun percent_getNumericOne_zero() {
         Mockito.`when`(model.getMathOperations()).thenReturn('-')
         Mockito.`when`(model.getOutputText()).thenReturn(StringBuilder("100-0"))
@@ -152,6 +159,13 @@ class MainPresenterTest {
 
     //-------------------------------------------------------------------------------------------------
     @Test
+    fun dot_isFirstSymbolDot() {
+        Mockito.`when`(model.getOutputText()).thenReturn(StringBuilder())
+        presenter.dot()
+        Mockito.verify(viewContract, Mockito.times(1)).setInputText(".")
+    }
+
+    @Test
     fun dot_isNumericTwo_containsDot() {
         Mockito.`when`(model.getOutputText()).thenReturn(StringBuilder("4+2.2"))
         Mockito.`when`(model.getMathOperations()).thenReturn('+')
@@ -167,13 +181,6 @@ class MainPresenterTest {
         Mockito.`when`(model.getNumericTwo()).thenReturn(4f)
         presenter.dot()
         Mockito.verify(viewContract, Mockito.times(1)).setInputText("4+4.")
-    }
-
-    @Test
-    fun dot_isFirstSymbolDot() {
-        Mockito.`when`(model.getOutputText()).thenReturn(StringBuilder())
-        presenter.dot()
-        Mockito.verify(viewContract, Mockito.times(1)).setInputText(".")
     }
 
     //-------------------------------------------------------------------------------------------------
