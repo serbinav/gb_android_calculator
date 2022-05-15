@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_new"
         android:supportsRtl="true"
         android:theme="@style/Theme.Calculator.Another">
-        <activity android:name=".SettingsActivity"></activity>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,12 +19,15 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="intentstest"
-                    android:host="calc" />
+
+                <data
+                    android:host="calc"
+                    android:scheme="intentstest" />
             </intent-filter>
         </activity>
+        <activity android:name=".SettingsActivity" />
     </application>
-
 </manifest>
